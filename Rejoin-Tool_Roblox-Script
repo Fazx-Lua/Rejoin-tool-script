@@ -252,7 +252,7 @@ end)
 
 -- Background loop to copy JobId continuously
 task.spawn(function()
-	while task.wait(1) do
+	while task.wait(120) do
 		setclipboard(JobId)
 	end
 end)
