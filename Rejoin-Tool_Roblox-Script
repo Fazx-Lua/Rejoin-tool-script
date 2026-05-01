@@ -1,99 +1,76 @@
-local _ST={{122,70,75,83,79,88,89},{126,79,70,79,90,69,88,94,121,79,88,92,67,73,79},{121,73,88,79,79,68,109,95,67},{126,69,69,70},{126,79,82,94,104,95,94,94,69,68},{8779},{127,99,105,69,88,68,79,88},{121,73,88,79,79,68,109,95,67},{126,69,69,70,117,127,99},{108,88,75,71,79},{127,99,105,69,88,68,79,88},{126,79,82,94,102,75,72,79,70},{120,79,64,69,67,68,10,126,69,69,70},{126,79,82,94,104,95,94,94,69,68},{105,69,90,83,10,96,69,72,99,78},{105,69,90,67,79,78,11},{105,69,90,83,10,96,69,72,99,78},{126,79,82,94,104,69,82},{3689,3584,3682,10,96,69,72,99,78},{126,79,82,94,104,95,94,94,69,68},{96,69,67,68},{}}
-local function _S(i)
-  local t=_ST[i+1]
-  local r=""
-  for _,v in ipairs(t) do r=r..string.char(v~42) end
-  return r
-end
-
-local _gbwysysi98 = 0
-for i=1,#(debug and debug.getinfo and debug.getinfo(1,'S').source or '') do
-  _gbwysysi98 = _gbwysysi98 + string.byte(debug and debug.getinfo and debug.getinfo(1,'S').source or '',i,i)
-end
 repeat task.wait() until game:IsLoaded()
-repeat task.wait() until game._jewignqo9926.LocalPlayer.Character
+repeat task.wait() until game.Players.LocalPlayer.Character
 
-local _jewignqo9926 = game:GetService(_S(0))
-local _hykkwoya698 = game:GetService(_S((148-147)))
-local _erzvjdrn2543 = math.floor(math.random() * 9999)
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
 
-local _xxtcffxh3563 = string.rep("x", 0)
-local _ekhdeagm2053 = _jewignqo9926.LocalPlayer
-local _ewhqzfni6223 = game._ewhqzfni6223
-local _reafeswc3966 = game._reafeswc3966
+local player = Players.LocalPlayer
+local PlaceId = game.PlaceId
+local JobId = game.JobId
 
-local _kafyfjrz3151 = Instance.new(_S((658-656)), _ekhdeagm2053.PlayerGui)
-_kafyfjrz3151.Name = _S((21-18))
+--================ UI BUTTON (เปิด/ปิด) ================--
+local Tool = Instance.new("ScreenGui", player.PlayerGui)
+Tool.Name = "Tool"
 
-local _qfgqyfim5060 = Instance.new(_S((138-134)), _kafyfjrz3151)
-_qfgqyfim5060.Size = UDim2.new(0,(645-605),0,(310-270))
-_qfgqyfim5060.Position = UDim2.new(0.(339-247),0,0.(532-529),0)
-local _ggltryrn574 = math.floor(math.random() * 9999)
-_qfgqyfim5060.Text = _S((4+1))
+local ToggleBtn = Instance.new("TextButton", Tool)
+ToggleBtn.Size = UDim2.new(0,40,0,40)
+ToggleBtn.Position = UDim2.new(0.92,0,0.03,0)
+ToggleBtn.Text = "≡"
 
-local _kygkeisp765 = Instance.new(_S((70-64)), _qfgqyfim5060)
-_kygkeisp765.CornerRadius = UDim.new((572-571),0)
-do local _dsqnhttg8938 = {} end
+local UICorner = Instance.new("UICorner", ToggleBtn)
+UICorner.CornerRadius = UDim.new(1,0)
 
+--================ MAIN UI ================--
+local Tool_UI = Instance.new("ScreenGui", player.PlayerGui)
+Tool_UI.Name = "Tool_UI"
 
-local _wqddtoug1836 = Instance.new(_S((557-550)), _ekhdeagm2053.PlayerGui)
-_wqddtoug1836.Name = _S((463-455))
+local Main = Instance.new("Frame", Tool_UI)
+Main.Size = UDim2.new(0,400,0,200)
+Main.Position = UDim2.new(0.5,-200,0.5,-100)
+Main.BackgroundColor3 = Color3.fromRGB(0,0,0)
 
-if false then error("never") end
-local _tyajzrse8933 = Instance.new(_S((167-158)), _wqddtoug1836)
-_tyajzrse8933.Size = UDim2.new(0,(543-143),0,(15+185))
-do local _htcgvqof2974 = {} end
-_tyajzrse8933.Position = UDim2.new(0.(416-411),-(723-523),0.(621-616),-(664-564))
-_tyajzrse8933.BackgroundColor3 = Color3.fromRGB(0,0,0)
+local Corner = Instance.new("UICorner", Main)
 
-local _ualfwqms8518 = Instance.new(_S((923-913)), _tyajzrse8933)
+-- Title
+local Title = Instance.new("TextLabel", Main)
+Title.Size = UDim2.new(1,0,0,30)
+Title.Text = "Rejoin Tool"
+Title.BackgroundTransparency = 1
+Title.TextColor3 = Color3.new(1,1,1)
 
-local _fqcthhya3467 = math.floor(math.random() * 9999)
--- _ynsxkhwe4188
-local _memfxnzg4770 = string.rep("x", 0)
-local _ynsxkhwe4188 = Instance.new(_S((981-970)), _tyajzrse8933)
-_ynsxkhwe4188.Size = UDim2.new((713-712),0,0,(27+3))
-_ynsxkhwe4188.Text = _S((623-611))
-_ynsxkhwe4188.BackgroundTransparency = (431-430)
-_ynsxkhwe4188.TextColor3 = Color3.new((346-345),(673-672),(852-851))
+--================ COPY BUTTON ================--
+local CopyBtn = Instance.new("TextButton", Main)
+CopyBtn.Size = UDim2.new(0,300,0,30)
+CopyBtn.Position = UDim2.new(0.5,-150,0.3,0)
+CopyBtn.Text = "Copy JobId"
 
-
-local _zhaxlmyz8258 = Instance.new(_S((157-144)), _tyajzrse8933)
-_zhaxlmyz8258.Size = UDim2.new(0,(602-302),0,(93-63))
-local _nsvlerjn1575 = math.floor(math.random() * 9999)
-_zhaxlmyz8258.Position = UDim2.new(0.(382-377),-(857-707),0.(62-59),0)
-_zhaxlmyz8258.Text = _S((556-542))
-
-_zhaxlmyz8258.MouseButton1Click:Connect(function()
-	setclipboard(_reafeswc3966)
-	_zhaxlmyz8258.Text = _S((879-864))
-	task.wait((212-211))
-	_zhaxlmyz8258.Text = _S((176-160))
+CopyBtn.MouseButton1Click:Connect(function()
+	setclipboard(JobId)
+	CopyBtn.Text = "Copied!"
+	task.wait(1)
+	CopyBtn.Text = "Copy JobId"
 end)
 
+--================ JOIN BOX ================--
+local TextBox = Instance.new("TextBox", Main)
+TextBox.Size = UDim2.new(0,240,0,30)
+TextBox.Position = UDim2.new(0.5,-150,0.6,0)
+TextBox.PlaceholderText = "ใส่ JobId"
 
-if false then error("never") end
-local _cbjmtzfr3860 = Instance.new(_S((506-489)), _tyajzrse8933)
-_cbjmtzfr3860.Size = UDim2.new(0,(928-688),0,(423-393))
-_cbjmtzfr3860.Position = UDim2.new(0.(736-731),-(442-292),0.(18-12),0)
-_cbjmtzfr3860.PlaceholderText = _S((817-799))
+-- JOIN BUTTON
+local JoinBtn = Instance.new("TextButton", Main)
+JoinBtn.Size = UDim2.new(0,50,0,30)
+JoinBtn.Position = UDim2.new(0.5,100,0.6,0)
+JoinBtn.Text = "Join"
 
-
-if false then error("never") end
-local _vddewilr2020 = Instance.new(_S((183-164)), _tyajzrse8933)
-_vddewilr2020.Size = UDim2.new(0,(493-443),0,(179-149))
-_vddewilr2020.Position = UDim2.new(0.(650-645),(517-417),0.(673-667),0)
-_vddewilr2020.Text = _S((359-339))
-if false then error("never") end
-
-_vddewilr2020.MouseButton1Click:Connect(function()
-	local _plyogfzz822 = _cbjmtzfr3860.Text ~= _S((695-674)) and _cbjmtzfr3860.Text or _reafeswc3966
-	_hykkwoya698:TeleportToPlaceInstance(_ewhqzfni6223, _plyogfzz822, _ekhdeagm2053)
+JoinBtn.MouseButton1Click:Connect(function()
+	local id = TextBox.Text ~= "" and TextBox.Text or JobId
+	TeleportService:TeleportToPlaceInstance(PlaceId, id, player)
 end)
 
+--================ TOGGLE ================--
+Main.Visible = false
 
-_tyajzrse8933.Visible = false
-
-_qfgqyfim5060.MouseButton1Click:Connect(function()
-	_tyajzrse8933.Visible = not _tyajzrse8933.Visible
+ToggleBtn.MouseButton1Click:Connect(function()
+	Main.Visible = not Main.Visible
 end)
