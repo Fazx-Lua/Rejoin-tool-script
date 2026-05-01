@@ -1,6 +1,4 @@
-repeat task.wait() until game:IsLoaded()
-repeat task.wait() until game.Players.LocalPlayer.Character
-
+-- Services and Variables
 local Players = game:GetService("Players")
 local TeleportService = game:GetService("TeleportService")
 
@@ -8,69 +6,281 @@ local player = Players.LocalPlayer
 local PlaceId = game.PlaceId
 local JobId = game.JobId
 
---================ UI BUTTON (เปิด/ปิด) ================--
-local Tool = Instance.new("ScreenGui", player.PlayerGui)
+-- Create ScreenGuis
+local Tool = Instance.new("ScreenGui")
+local Tool_UI = Instance.new("ScreenGui")
+
+-- ==========================================
+-- Tool UI
+-- ==========================================
 Tool.Name = "Tool"
+Tool.Parent = player:WaitForChild("PlayerGui")
+Tool.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-local ToggleBtn = Instance.new("TextButton", Tool)
-ToggleBtn.Size = UDim2.new(0,40,0,40)
-ToggleBtn.Position = UDim2.new(0.92,0,0.03,0)
-ToggleBtn.Text = "≡"
+local Frame_Tool = Instance.new("Frame")
+Frame_Tool.Parent = Tool
+Frame_Tool.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame_Tool.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_Tool.BorderSizePixel = 0
+Frame_Tool.Position = UDim2.new(0.922305763, 0, 0.0266393442, 0)
+Frame_Tool.Size = UDim2.new(0, 40, 0, 40)
 
-local UICorner = Instance.new("UICorner", ToggleBtn)
-UICorner.CornerRadius = UDim.new(1,0)
+local UICorner_Tool = Instance.new("UICorner")
+UICorner_Tool.CornerRadius = UDim.new(1, 0)
+UICorner_Tool.Parent = Frame_Tool
 
---================ MAIN UI ================--
-local Tool_UI = Instance.new("ScreenGui", player.PlayerGui)
+local ImageLabel = Instance.new("ImageLabel")
+ImageLabel.Parent = Frame_Tool
+ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel.BackgroundTransparency = 1.000
+ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageLabel.BorderSizePixel = 0
+ImageLabel.Size = UDim2.new(1, 0, 1, 0)
+ImageLabel.Image = "rbxassetid://114523637347190"
+
+local UICorner_Image = Instance.new("UICorner")
+UICorner_Image.CornerRadius = UDim.new(1, 0)
+UICorner_Image.Parent = ImageLabel
+
+local UIStroke_Tool = Instance.new("UIStroke")
+UIStroke_Tool.Parent = Frame_Tool
+UIStroke_Tool.Color = Color3.fromRGB(255, 255, 255)
+UIStroke_Tool.Thickness = 2.000
+
+local TextButton_Tool = Instance.new("TextButton")
+TextButton_Tool.Parent = Frame_Tool
+TextButton_Tool.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_Tool.BackgroundTransparency = 1.000
+TextButton_Tool.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_Tool.BorderSizePixel = 0
+TextButton_Tool.Size = UDim2.new(0, 40, 0, 40)
+TextButton_Tool.Font = Enum.Font.SourceSans
+TextButton_Tool.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_Tool.TextSize = 14.000
+TextButton_Tool.Text = ""
+
+local UICorner_Btn = Instance.new("UICorner")
+UICorner_Btn.CornerRadius = UDim.new(1, 0)
+UICorner_Btn.Parent = TextButton_Tool
+
+-- ==========================================
+-- Tool UI (Main Menu)
+-- ==========================================
 Tool_UI.Name = "Tool_UI"
+Tool_UI.Parent = player:WaitForChild("PlayerGui")
+Tool_UI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-local Main = Instance.new("Frame", Tool_UI)
-Main.Size = UDim2.new(0,400,0,200)
-Main.Position = UDim2.new(0.5,-200,0.5,-100)
-Main.BackgroundColor3 = Color3.fromRGB(0,0,0)
+local Frame_Main = Instance.new("Frame")
+Frame_Main.Parent = Tool_UI
+Frame_Main.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame_Main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame_Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_Main.BorderSizePixel = 0
+Frame_Main.Position = UDim2.new(0.5, 0, 0.473360658, 0)
+Frame_Main.Size = UDim2.new(0, 414, 0, 225)
+Frame_Main.Visible = false -- Starts hidden
 
-local Corner = Instance.new("UICorner", Main)
+local UICorner_Main = Instance.new("UICorner")
+UICorner_Main.Parent = Frame_Main
 
--- Title
-local Title = Instance.new("TextLabel", Main)
-Title.Size = UDim2.new(1,0,0,30)
-Title.Text = "Rejoin Tool"
-Title.BackgroundTransparency = 1
-Title.TextColor3 = Color3.new(1,1,1)
+local DropShadowHolder = Instance.new("Frame")
+DropShadowHolder.Name = "DropShadowHolder"
+DropShadowHolder.Parent = Frame_Main
+DropShadowHolder.BackgroundTransparency = 1.000
+DropShadowHolder.BorderSizePixel = 0
+DropShadowHolder.Size = UDim2.new(1, 0, 1, 0)
+DropShadowHolder.ZIndex = 0
 
---================ COPY BUTTON ================--
-local CopyBtn = Instance.new("TextButton", Main)
-CopyBtn.Size = UDim2.new(0,300,0,30)
-CopyBtn.Position = UDim2.new(0.5,-150,0.3,0)
-CopyBtn.Text = "Copy JobId"
+local DropShadow = Instance.new("ImageLabel")
+DropShadow.Name = "DropShadow"
+DropShadow.Parent = DropShadowHolder
+DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+DropShadow.BackgroundTransparency = 1.000
+DropShadow.BorderSizePixel = 0
+DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+DropShadow.Size = UDim2.new(1, 47, 1, 47)
+DropShadow.ZIndex = 0
+DropShadow.Image = "rbxassetid://6014261993"
+DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+DropShadow.ImageTransparency = 0.500
+DropShadow.ScaleType = Enum.ScaleType.Slice
+DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 
-CopyBtn.MouseButton1Click:Connect(function()
+local Top_Bar = Instance.new("Frame")
+Top_Bar.Name = "Top_Bar"
+Top_Bar.Parent = Frame_Main
+Top_Bar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Top_Bar.BackgroundTransparency = 1.000
+Top_Bar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Top_Bar.BorderSizePixel = 0
+Top_Bar.Size = UDim2.new(0, 414, 0, 34)
+
+local TextLabel_Top = Instance.new("TextLabel")
+TextLabel_Top.Parent = Top_Bar
+TextLabel_Top.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_Top.BackgroundTransparency = 1.000
+TextLabel_Top.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_Top.BorderSizePixel = 0
+TextLabel_Top.Size = UDim2.new(0, 414, 0, 33)
+TextLabel_Top.Font = Enum.Font.FredokaOne
+TextLabel_Top.Text = "Rejoin Tool | All Map"
+TextLabel_Top.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_Top.TextSize = 14.000
+
+local Line = Instance.new("Frame")
+Line.Name = "Line"
+Line.Parent = Frame_Main
+Line.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Line.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Line.BorderSizePixel = 0
+Line.Position = UDim2.new(0, 0, 0.131474108, 0)
+Line.Size = UDim2.new(0, 414, 0, 1)
+
+local UIGradient = Instance.new("UIGradient")
+UIGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 0, 0)), 
+    ColorSequenceKeypoint.new(0.50, Color3.fromRGB(255, 255, 255)), 
+    ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 0, 0))
+}
+UIGradient.Parent = Line
+
+-- Copy Job ID Block
+local Copy_JobId = Instance.new("Frame")
+Copy_JobId.Name = "Copy_JobId"
+Copy_JobId.Parent = Frame_Main
+Copy_JobId.BackgroundColor3 = Color3.fromRGB(21, 21, 21)
+Copy_JobId.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Copy_JobId.BorderSizePixel = 0
+Copy_JobId.Position = UDim2.new(0.103864737, 0, 0.239043832, 0)
+Copy_JobId.Size = UDim2.new(0, 328, 0, 31)
+
+local UICorner_Copy = Instance.new("UICorner")
+UICorner_Copy.Parent = Copy_JobId
+
+local UIStroke_Copy = Instance.new("UIStroke")
+UIStroke_Copy.Parent = Copy_JobId
+UIStroke_Copy.Color = Color3.fromRGB(255, 255, 255)
+
+local TextLabel_Copy = Instance.new("TextLabel")
+TextLabel_Copy.Parent = Copy_JobId
+TextLabel_Copy.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_Copy.BackgroundTransparency = 1.000
+TextLabel_Copy.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_Copy.BorderSizePixel = 0
+TextLabel_Copy.Size = UDim2.new(0, 328, 0, 31)
+TextLabel_Copy.Font = Enum.Font.FredokaOne
+TextLabel_Copy.Text = "Copy JobId"
+TextLabel_Copy.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_Copy.TextSize = 14.000
+
+local TextButton_Copy = Instance.new("TextButton")
+TextButton_Copy.Parent = Copy_JobId
+TextButton_Copy.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_Copy.BackgroundTransparency = 1.000
+TextButton_Copy.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_Copy.BorderSizePixel = 0
+TextButton_Copy.Size = UDim2.new(0, 328, 0, 31)
+TextButton_Copy.Font = Enum.Font.SourceSans
+TextButton_Copy.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_Copy.TextSize = 14.000
+TextButton_Copy.Text = ""
+
+-- Join Job ID Block
+local join_JobId = Instance.new("Frame")
+join_JobId.Name = "join_JobId"
+join_JobId.Parent = Frame_Main
+join_JobId.BackgroundColor3 = Color3.fromRGB(21, 21, 21)
+join_JobId.BorderColor3 = Color3.fromRGB(0, 0, 0)
+join_JobId.BorderSizePixel = 0
+join_JobId.Position = UDim2.new(0.103864737, 0, 0.438247025, 0)
+join_JobId.Size = UDim2.new(0, 292, 0, 31)
+
+local UICorner_Join = Instance.new("UICorner")
+UICorner_Join.Parent = join_JobId
+
+local UIStroke_Join = Instance.new("UIStroke")
+UIStroke_Join.Parent = join_JobId
+UIStroke_Join.Color = Color3.fromRGB(255, 255, 255)
+
+local TextBox_Join = Instance.new("TextBox")
+TextBox_Join.Parent = join_JobId
+TextBox_Join.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox_Join.BackgroundTransparency = 1.000
+TextBox_Join.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextBox_Join.BorderSizePixel = 0
+TextBox_Join.Size = UDim2.new(0, 292, 0, 31)
+TextBox_Join.Font = Enum.Font.FredokaOne
+TextBox_Join.PlaceholderText = "JobId"
+TextBox_Join.Text = ""
+TextBox_Join.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextBox_Join.TextSize = 14.000
+
+local Frame_2 = Instance.new("Frame")
+Frame_2.Parent = Frame_Main
+Frame_2.BackgroundColor3 = Color3.fromRGB(21, 21, 21)
+Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_2.BorderSizePixel = 0
+Frame_2.Position = UDim2.new(0.821256042, 0, 0.438247025, 0)
+Frame_2.Size = UDim2.new(0, 31, 0, 31)
+
+local UICorner_4 = Instance.new("UICorner")
+UICorner_4.Parent = Frame_2
+
+local UIStroke_3 = Instance.new("UIStroke")
+UIStroke_3.Parent = Frame_2
+UIStroke_3.Color = Color3.fromRGB(255, 255, 255)
+
+local ImageButton = Instance.new("ImageButton")
+ImageButton.Parent = Frame_2
+ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageButton.BackgroundTransparency = 1.000
+ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.129032254, 0, 0.129032254, 0)
+ImageButton.Size = UDim2.new(0, 22, 0, 22)
+ImageButton.Image = "rbxassetid://6257079049"
+ImageButton.ImageColor3 = Color3.fromRGB(68, 255, 0)
+
+-- ==========================================
+-- Logic and Event Listeners
+-- ==========================================
+
+-- Toggle Tool UI Menu
+TextButton_Tool.MouseButton1Click:Connect(function()
+    Frame_Main.Visible = not Frame_Main.Visible
+end)
+
+-- Background loop to copy JobId continuously
+task.spawn(function()
+	while task.wait(1) do
+		setclipboard(JobId)
+	end
+end)
+
+-- Button to manually copy JobId
+TextButton_Copy.MouseButton1Click:Connect(function()
 	setclipboard(JobId)
-	CopyBtn.Text = "Copied!"
+	TextLabel_Copy.Text = "Copied!"
 	task.wait(1)
-	CopyBtn.Text = "Copy JobId"
+	TextLabel_Copy.Text = "Copy JobId"
 end)
 
---================ JOIN BOX ================--
-local TextBox = Instance.new("TextBox", Main)
-TextBox.Size = UDim2.new(0,240,0,30)
-TextBox.Position = UDim2.new(0.5,-150,0.6,0)
-TextBox.PlaceholderText = "ใส่ JobId"
-
--- JOIN BUTTON
-local JoinBtn = Instance.new("TextButton", Main)
-JoinBtn.Size = UDim2.new(0,50,0,30)
-JoinBtn.Position = UDim2.new(0.5,100,0.6,0)
-JoinBtn.Text = "Join"
-
-JoinBtn.MouseButton1Click:Connect(function()
-	local id = TextBox.Text ~= "" and TextBox.Text or JobId
-	TeleportService:TeleportToPlaceInstance(PlaceId, id, player)
+-- Join Job ID Button
+ImageButton.MouseButton1Click:Connect(function()
+	local targetJobId = TextBox_Join.Text
+	if targetJobId and targetJobId ~= "" then
+		local success, err = pcall(function()
+			TeleportService:TeleportToPlaceInstance(PlaceId, targetJobId, player)
+		end)
+		if not success then
+			warn("Failed to teleport: " .. tostring(err))
+		end
+	else
+		warn("Please enter a valid JobId.")
+	end
 end)
 
---================ TOGGLE ================--
-Main.Visible = false
-
-ToggleBtn.MouseButton1Click:Connect(function()
-	Main.Visible = not Main.Visible
-end)
+-- Rejoin Function
+local function rejoin()
+	TeleportService:TeleportToPlaceInstance(PlaceId, JobId, player)
+end
